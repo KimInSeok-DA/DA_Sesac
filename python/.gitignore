@@ -1,0 +1,34 @@
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Virtual environments
+env/
+venv/
+.venv/
+ENV/
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Data / outputs (optional)
+data/
+outputs/
+*.csv
+*.pkl
+*.h5
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs / test artifacts
+*.log
+.pytest_cache/
+coverage/

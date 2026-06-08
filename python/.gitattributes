@@ -1,0 +1,11 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+bash
+
+git --version
+
+
+
+
+git --version
+git --version
