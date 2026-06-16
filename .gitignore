@@ -3,3 +3,4 @@
 *.sqlite3
 .env
 docker-compose.yml
+.idea/
