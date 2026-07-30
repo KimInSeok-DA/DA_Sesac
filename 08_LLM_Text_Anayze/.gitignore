@@ -1,0 +1,25 @@
+# Python bytecode / cache
+__pycache__/
+*.py[cod]
+
+# uv virtual environment (uv.lock, pyproject.toml, .python-version은 커밋)
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# API 키 등 민감정보
+.env
+.env.*
+
+# ChromaDB 로컬 persist 디렉터리 (persist_directory 지정 시 생성)
+chroma_db/
+*.sqlite3
+
+# Claude Code 로컬 설정(사용자별)
+.claude/settings.local.json
+
+# OS / 에디터
+.DS_Store
+Thumbs.db
+.vscode/
