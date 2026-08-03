@@ -7,6 +7,31 @@ resolution-markers = [
     "sys_platform != 'emscripten' and sys_platform != 'win32'",
 ]
 
+[manifest]
+members = [
+    "09-llm-ai-agent",
+    "da-sesac",
+]
+
+[[package]]
+name = "09-llm-ai-agent"
+version = "0.1.0"
+source = { virtual = "09_LLM_AI_Agent" }
+dependencies = [
+    { name = "ipykernel" },
+    { name = "matplotlib" },
+    { name = "numpy" },
+    { name = "pandas" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ipykernel", specifier = ">=7.3.0" },
+    { name = "matplotlib", specifier = ">=3.11.1" },
+    { name = "numpy", specifier = ">=2.5.1" },
+    { name = "pandas", specifier = ">=3.0.5" },
+]
+
 [[package]]
 name = "appnope"
 version = "0.1.4"

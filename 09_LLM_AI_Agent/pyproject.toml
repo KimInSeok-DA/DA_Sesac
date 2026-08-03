@@ -1,5 +1,5 @@
 [project]
-name = "da-sesac"
+name = "09-llm-ai-agent"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -9,9 +9,4 @@ dependencies = [
     "matplotlib>=3.11.1",
     "numpy>=2.5.1",
     "pandas>=3.0.5",
-]
-
-[tool.uv.workspace]
-members = [
-    "09_LLM_AI_Agent",
 ]
