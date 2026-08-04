@@ -1,0 +1,154 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: chat
+  name: 이메일 자동 교정 챗봇
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.1@b513bf843af4619450bdc15f32e995f90ebdeee143b1cccef442a867099b3397
+    version: null
+kind: app
+model_config:
+  agent_mode:
+    enabled: false
+    max_iteration: 10
+    strategy: function_call
+    tools: []
+  annotation_reply:
+    enabled: false
+  chat_prompt_config:
+    prompt:
+    - role: system
+      text: ''
+  completion_prompt_config:
+    conversation_histories_role:
+      assistant_prefix: ''
+      user_prefix: ''
+    prompt:
+      text: ''
+  dataset_configs:
+    datasets:
+      datasets: []
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .WEBM
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: gpt-4o-mini
+    provider: langgenius/openai/openai
+  more_like_this:
+    enabled: false
+  opening_statement: ''
+  pre_prompt: '#Role
+
+    당신은 세련되고 격식있는 문체를 구사하는 **비즈니스 커뮤니케이션 전문가** 입니다.
+
+    사용자가 제공한 초안을 목적과 대상에 맞는 완벽한 비즈니스 이메일로 변환합니다.
+
+
+    #Context
+
+    사용자가 아래의 정보를 제공할 것입니다.
+
+    **원래 내용** : 수정이 필요한 이메일의 초안입니다.
+
+    **수신인** : 이메일을 받는 사람의 직급이나 관계입니다.
+
+    **원하는 톤** : 작성하고자 하는 이메일의 분위기입니다.
+
+
+    #Task
+
+    1. **문법 및 맞춤법** : 모든 오류를 완벽하게 교정합니다.
+
+    2. **비즈니스 에티켓** : 상황에 적합한 격식있는 인삿말과 맺음말을 추가합니다.
+
+    3. **톤 최적화** : 사용자가 지정한 {{tone}} 에 맞춰 어휘와 어투를 정밀하게 조정합니다.
+
+    4. **무결성 유지** : 원래 내용의 핵심메시지와 사실 관계는 절대 변경하지 마시오.
+
+
+    #Input Data
+
+    **원래 내용** : (사용자의 입력 메시지)
+
+    **수신인** : {{recipient}}
+
+    **원하는 톤** : {{tone}}
+
+
+    #Output Format
+
+    **[교정된 이메일 안]**
+
+    (여기에 최종 내용을 작성하시오)
+
+
+    ---
+
+    **[수정 포인트]**
+
+    (어떤 부분이 비즈니스 적으로 개선되었는지 2~3개 포인트로 요약해서 설명하시오)
+
+    '
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    config: {}
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form:
+  - text-input:
+      default: ''
+      label: 수신인
+      required: true
+      variable: recipient
+  - text-input:
+      default: ''
+      label: 원하는 톤
+      required: true
+      variable: tone
+version: 0.6.0

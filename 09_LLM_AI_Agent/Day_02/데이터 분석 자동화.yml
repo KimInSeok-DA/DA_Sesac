@@ -1,0 +1,265 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: 데이터 분석 자동화
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.1@b513bf843af4619450bdc15f32e995f90ebdeee143b1cccef442a867099b3397
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1785824226904-source-1785824475222-target
+      source: '1785824226904'
+      sourceHandle: source
+      target: '1785824475222'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1785824475222-source-1785824506907-target
+      source: '1785824475222'
+      sourceHandle: source
+      target: '1785824506907'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1785824506907-source-1785825457591-target
+      source: '1785824506907'
+      sourceHandle: source
+      target: '1785825457591'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 시작
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          default: ''
+          hide: false
+          hint: ''
+          label: file
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: file
+        - default: ''
+          hint: ''
+          label: query
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: query
+      height: 135
+      id: '1785824226904'
+      position:
+        x: 79
+        y: 289
+      positionAbsolute:
+        x: 79
+        y: 289
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        is_array_file: false
+        selected: false
+        title: Doc 추출기
+        type: document-extractor
+        variable_selector:
+        - '1785824226904'
+        - file
+      height: 104
+      id: '1785824475222'
+      position:
+        x: 457
+        y: 310
+      positionAbsolute:
+        x: 457
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1785824475222'
+          - text
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-5.5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 2d3877ea-fcd3-40bc-90b1-d42fed514610
+          role: system
+          text: '#Role
+
+            당신은 숙련된 데이터분석가이자 비즈니스 전략가입니다.
+
+            제공된 [데이터] 를 [사용자의 질문] 에 맞게 분석하여 통계적 근거를 바탕으로 답변을 생성하시오.
+
+
+            #Task
+
+            [사용자의 질문] 에 대하여 [데이터] 를 기반으로 정량적 분석과 정성적 인사이트를 결합하여 답변하시오.
+
+            1. **수치 중심 분석** : 가능한 경우 모든 주장에는 [데이터] 내의 구체적인 숫자, 비율, 기간을 명시하시오.
+
+            2. **패턴 식별** : [데이터] 내의 추세, 급격한 변화 혹은 상관관계가 보인다면 이를 언급하시오.
+
+            3. **가공 금지** : [데이터] 에 없는 수치를 계산하여 추측하지 마시오. 계산이 필요하다면, "제공된 데이터를 기반으로
+            계산 시~"라고 명시하시오.
+
+            4. **불확실성 명시** : [데이터] 가 부족하여 명백한 결론을 내리기 어렵다면, 어떤 데이터가 추가로 필요한지 제안하시오.
+
+
+            #Output Format
+
+            1. **분석 요약** : (한줄 요약)
+
+            2. **주요 데이터 포인트** : (근거가 되는 핵심 수치들)
+
+            3. **상세 분석 및 인사이트** : (데이터를 통해 해석된 비즈니스 의미)
+
+            4. **추가 권장 사항** : (데이터 기반으로 제안하는 다음 액션 플랜)'
+        - id: fffd7a31-1b49-454b-a2f3-bb5677b421f8
+          role: user
+          text: '[데이터] : {{#context#}}
+
+            [사용자의 질문] : {{#1785824226904.query#}}'
+        selected: true
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1785824506907'
+      position:
+        x: 797
+        y: 310
+      positionAbsolute:
+        x: 797
+        y: 310
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - '1785824506907'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 출력
+        type: end
+      height: 88
+      id: '1785825457591'
+      position:
+        x: 1170
+        y: 311
+      positionAbsolute:
+        x: 1170
+        y: 311
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: 81
+      y: 72
+      zoom: 1
+  rag_pipeline_variables: []

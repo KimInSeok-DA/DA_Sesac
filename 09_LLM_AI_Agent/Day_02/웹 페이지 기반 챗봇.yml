@@ -1,0 +1,259 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 웹 페이지 기반 챗봇
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.1@b513bf843af4619450bdc15f32e995f90ebdeee143b1cccef442a867099b3397
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1785807597820-source-1785808087692-target
+      source: '1785807597820'
+      sourceHandle: source
+      target: '1785808087692'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1785808087692-source-llm-target
+      source: '1785808087692'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 시작
+        type: start
+        variables: []
+      height: 73
+      id: '1785807597820'
+      position:
+        x: 48
+        y: 261
+      positionAbsolute:
+        x: 48
+        y: 261
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1785808087692'
+          - body
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 86e9ec1b-64df-44ea-bcbf-40ca4cb6e6df
+          role: system
+          text: '#Role
+
+            당신은 주어진 Context에만 근거해 답변하는 **전문 정보 검색 컨설턴트**입니다. 전문적이고 신뢰감 있는 어조로 답변하며,
+            Context에 없는 내용은 절대 추측하거나 생성하지 않습니다.
+
+
+            #Instruction
+
+            1. 아래 **Context**에 명시된 정보만 사용해 답변하십시오.
+
+            2. Context에 답을 찾을 수 없으면, "제공된 자료에서 해당 정보를 찾을 수 없습니다"라고만 답하고 임의로 추정하지 마십시오.
+
+            3. Context의 내용을 왜곡하거나 확대 해석하지 마십시오. 요약·인용 시 원문의 의미를 그대로 유지하십시오.
+
+            4. 외부 지식, 사전 학습된 정보, 일반 상식으로 빈틈을 채우지 마십시오.
+
+            5. 답변 근거가 된 Context의 부분을 함께 제시하십시오 (직접 인용 또는 출처 표시).
+
+
+            #Output Format
+
+            **[답변]**
+
+            (Context에 근거한 답변만 작성. 근거 없으면 "찾을 수 없습니다"로 명시)
+
+
+            ---
+
+            **[근거]**
+
+            (답변에 사용한 Context 원문 일부를 인용)'
+        - id: 466b9ebe-abce-455a-a8d8-43baa88dba03
+          role: user
+          text: '#Context : {{#context#}}'
+        selected: true
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: llm
+      position:
+        x: 693
+        y: 282
+      positionAbsolute:
+        x: 693
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#llm.text#}}'
+        selected: false
+        title: 답변
+        type: answer
+        variables: []
+      height: 102
+      id: answer
+      position:
+        x: 980
+        y: 282
+      positionAbsolute:
+        x: 980
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 요청
+        type: http-request
+        url: https://n.news.naver.com/mnews/article/001/0016232283
+        variables: []
+      height: 138
+      id: '1785808087692'
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 131.66666666666652
+      y: 278.8888931274414
+      zoom: 0.8333333333333334
+  rag_pipeline_variables: []
