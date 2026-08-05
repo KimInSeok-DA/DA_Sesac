@@ -1,0 +1,167 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: agent-chat
+  name: 검색 에이전트
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/arxiv:0.0.7@800028bb17b10fbf75dfc97ebb49a66f4bd873d629061aad3cb8f646d3105938
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.3@cc37544750d72ca3782bdaa81ab0e2facbf5bb74105a169a7ff974a27c6a5f29
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tavily:0.1.11@391b4eb366f3bb04222411f621f9e7f20f730e96a38cbc3752a56ab00cab38b0
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/wikipedia:0.0.8@f7df00299f261c4f0f462f5496de26f1c1013f50a737fa7d40436d1c44963aeb
+    version: null
+kind: app
+model_config:
+  agent_mode:
+    enabled: true
+    max_iteration: 10
+    prompt: null
+    strategy: function_call
+    tools:
+    - enabled: true
+      notAuthor: false
+      provider_id: langgenius/tavily/tavily
+      provider_name: langgenius/tavily/tavily
+      provider_type: builtin
+      tool_label: Tavily Search
+      tool_name: tavily_search
+      tool_parameters:
+        auto_parameters: false
+        chunks_per_source: 3
+        country: null
+        end_date: null
+        exclude_domains: null
+        include_answer: 'false'
+        include_domains: null
+        include_favicon: false
+        include_image_descriptions: false
+        include_images: false
+        include_raw_content: 'false'
+        include_usage: false
+        max_results: 5
+        project_id: null
+        query: null
+        search_depth: basic
+        start_date: null
+        time_range: not_specified
+        topic: general
+      type: builtin
+    - enabled: true
+      notAuthor: false
+      provider_id: time
+      provider_name: time
+      provider_type: builtin
+      tool_label: Current Time
+      tool_name: current_time
+      tool_parameters:
+        format: '%Y-%m-%d %H:%M:%S'
+        timezone: Asia/Seoul
+      type: builtin
+    - enabled: true
+      notAuthor: false
+      provider_id: langgenius/arxiv/arxiv
+      provider_name: langgenius/arxiv/arxiv
+      provider_type: builtin
+      tool_label: Arxiv Search
+      tool_name: arxiv_search
+      tool_parameters:
+        query: null
+      type: builtin
+    - enabled: true
+      notAuthor: false
+      provider_id: langgenius/wikipedia/wikipedia
+      provider_name: langgenius/wikipedia/wikipedia
+      provider_type: builtin
+      tool_label: WikipediaSearch
+      tool_name: wikipedia_search
+      tool_parameters:
+        language: null
+        query: null
+      type: builtin
+  annotation_reply:
+    enabled: false
+  chat_prompt_config:
+    prompt:
+    - role: system
+      text: ''
+  completion_prompt_config:
+    conversation_histories_role:
+      assistant_prefix: ''
+      user_prefix: ''
+    prompt:
+      text: ''
+  dataset_configs:
+    datasets:
+      datasets: []
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .WEBM
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: gpt-4o-mini
+    provider: langgenius/openai/openai
+  more_like_this:
+    enabled: false
+  opening_statement: ''
+  pre_prompt: 당신은 데이터 수집 전문가 입니다. 주어진 주제에 대한 통계, 수치, 논문, 검색 데이터 를 수집하고 출처와 함께 정리하시오.
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    enabled: false
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form: []
+version: 0.7.0

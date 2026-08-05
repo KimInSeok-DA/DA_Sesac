@@ -1,0 +1,464 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: 요약 보고서 작성
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.3@cc37544750d72ca3782bdaa81ab0e2facbf5bb74105a169a7ff974a27c6a5f29
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1785891862639-source-1785892005287-target
+      source: '1785891862639'
+      sourceHandle: source
+      target: '1785892005287'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: parameter-extractor
+      id: 1785892005287-source-1785892183864-target
+      source: '1785892005287'
+      sourceHandle: source
+      target: '1785892183864'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: llm
+      id: 1785892183864-source-1785892734879-target
+      source: '1785892183864'
+      sourceHandle: source
+      target: '1785892734879'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: iteration
+      id: 1785892183864-source-1785892959837-target
+      source: '1785892183864'
+      sourceHandle: source
+      target: '1785892959837'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1785892959837'
+        sourceType: iteration-start
+        targetType: llm
+      id: 1785892959837start-source-1785893018347-target
+      source: 1785892959837start
+      sourceHandle: source
+      target: '1785893018347'
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1785892734879-source-1785894351049-target
+      source: '1785892734879'
+      sourceHandle: source
+      target: '1785894351049'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: template-transform
+      id: 1785892959837-source-1785894351049-target
+      source: '1785892959837'
+      sourceHandle: source
+      target: '1785894351049'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: end
+      id: 1785894351049-source-1785894901411-target
+      source: '1785894351049'
+      sourceHandle: source
+      target: '1785894901411'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 시작
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          default: ''
+          hide: false
+          hint: ''
+          label: file
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: file
+      height: 109
+      id: '1785891862639'
+      position:
+        x: 78.80000000000001
+        y: 282
+      positionAbsolute:
+        x: 78.80000000000001
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        is_array_file: false
+        selected: false
+        title: Doc 추출기
+        type: document-extractor
+        variable_selector:
+        - '1785891862639'
+        - file
+      height: 104
+      id: '1785892005287'
+      position:
+        x: 425
+        y: 303
+      positionAbsolute:
+        x: 425
+        y: 303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-5.6
+          provider: langgenius/openai/openai
+        parameters:
+        - description: 문서의 제목
+          name: title
+          required: false
+          type: string
+        - description: 문서 작성자
+          name: author
+          required: false
+          type: string
+        - description: 문서의 주요 키워드 이거나 설명이 필요한 주요 단어
+          name: keywords
+          required: false
+          type: array[string]
+        query:
+        - '1785892005287'
+        - text
+        reasoning_mode: prompt
+        selected: false
+        title: 매개변수 추출기
+        type: parameter-extractor
+        vision:
+          enabled: false
+      height: 88
+      id: '1785892183864'
+      position:
+        x: 761
+        y: 303
+      positionAbsolute:
+        x: 761
+        y: 303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1785892005287'
+          - text
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-5.6
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 3a385ea2-5596-46ce-a255-2a99aad5c8fe
+          role: system
+          text: Context의 내용을 정독하고 보고서 형태로 작성하시오.
+        - id: 6dfe3793-04c8-4764-9633-203760cc39f9
+          role: user
+          text: '#Context : {{#context#}}'
+        selected: true
+        title: 요약 LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1785892734879'
+      position:
+        x: 1193.2
+        y: 174.60000000000002
+      positionAbsolute:
+        x: 1193.2
+        y: 174.60000000000002
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 176
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1785892183864'
+        - keywords
+        output_selector:
+        - '1785893018347'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1785892959837start
+        title: 반복
+        type: iteration
+        width: 386
+      height: 176
+      id: '1785892959837'
+      position:
+        x: 1111.6
+        y: 442.83333587646484
+      positionAbsolute:
+        x: 1111.6
+        y: 442.83333587646484
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 386
+      zIndex: 0
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1785892959837start
+      parentId: '1785892959837'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 1135.6
+        y: 510.83333587646484
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1785892959837'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 1f8d3a81-dea6-409d-a3da-f324421a295c
+          role: system
+          text: '{{#1785892959837.item#}}을 3문장 이하로 설명하시오.'
+        selected: false
+        title: 키워드 LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1785893018347'
+      parentId: '1785892959837'
+      position:
+        x: 128
+        y: 65.60000000000002
+      positionAbsolute:
+        x: 1239.6
+        y: 508.43333587646487
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1001
+    - data:
+        selected: false
+        template: "# <문서 제목>\r\n{{ arg1 }}\r\n\r\n# <저 자>\r\n{{ author }}\r\n\r\n\
+          # <요 약>\r\n{{ text }}\r\n\r\n-----\r\n\r\n# <키워드 해설>\r\n{% for i in output\
+          \ %}\r\n- {{i}}\r\n{% endfor %}"
+        title: 템플릿
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1785892183864'
+          - title
+          value_type: string
+          variable: arg1
+        - value_selector:
+          - '1785892183864'
+          - author
+          value_type: string
+          variable: author
+        - value_selector:
+          - '1785892734879'
+          - text
+          value_type: string
+          variable: text
+        - value_selector:
+          - '1785892959837'
+          - output
+          value_type: array[string]
+          variable: output
+      height: 52
+      id: '1785894351049'
+      position:
+        x: 1695.6
+        y: 303
+      positionAbsolute:
+        x: 1695.6
+        y: 303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - '1785894351049'
+          - output
+          value_type: string
+          variable: output
+        selected: false
+        title: 출력
+        type: end
+      height: 88
+      id: '1785894901411'
+      position:
+        x: 2024.6
+        y: 303
+      positionAbsolute:
+        x: 2024.6
+        y: 303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -458.16817566086684
+      y: 283.5847582133397
+      zoom: 0.8333333333333334
+  rag_pipeline_variables: []
